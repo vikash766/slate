@@ -1,0 +1,159 @@
+# Security
+
+## Authentication
+
+`RapidoReach's` DIY API uses and requires API key based authentication for all requests.
+
+There are two primary methods for authenticating via your API key:
+
+Provide your API key in the X-Api-Key HTTP header.
+
+## Rate Limiting
+
+There is currently a rate limit of 10 requests per second.
+
+## IP Whitelisting (Optional)
+
+We provide the ability to specify a static list of whitelisted IP addresses. Only requests coming from these IP addresses will be successfully authorized.
+
+To enable this feature go to your `company's` [settings](http://www.rapidoreach.com).
+
+## Request Hashing (Required)
+
+### The What?
+Request hashing is used by RapidoReach to validate the authenticity of a given request. We do this through the use of hashing the full request along with your company’s secret key. The hashing algorithm used currently defaults to sha3-256, which is the recommended algorithm to be used with our system.
+
+### The Why?
+Request hashing is a required feature of the DIY API that allows RapidoReach to validate the authenticity of API requests made on your `company's` behalf.
+
+### The How?
+Request hashing is accomplished by creating a hash of your request url (including query parameters), your company’s secret key, and the `request's` raw body. The hashed value is then added to the end of your request url using the enc query parameter.
+
+```javascript
+const { SHA3 } = require('sha3');
+
+const requestUrl = 'https://surveys.rapidoreach.com/api/external/v1/countries';
+const jsonBody = { 'key': 'value' };
+const secretKey = 'abcd1234';
+
+const secretUrl = requestUrl + JSON.encode(jsonBody) + secretKey;
+
+const hash = new SHA3(256);
+hash.update(secretUrl);
+
+hashedUrl = `${requestUrl}?enc=${hash.digest('hash')}`;
+```
+
+### GET/DELETE Requests
+
+#### Given The Values
+
+<code>Request URL: https://surveys.rapidoreach.com/api/endpoint?param_one=value_one
+Company Secret Key: UbsXaKTGWNd3wD8y5ZeV</code>
+
+#### We Hash Them
+
+<code>{Request URL}+{Company Secret Key}
+https://surveys.rapidoreach.com/api/endpoint?param_one=value_oneUbsXaKTGWNd3wD8y5ZeV</code></code>
+
+####  Which Gives The Hash
+
+<code>85598cc6d64d6d2490d088b070f955258d97840506731129958ed70a29db396e</code>
+
+#### And Gets Added To The URL
+<code>https://surveys.rapidoreach.com/api/endpoint?param_one=value_one&enc=85598cc6d64d6d2490d088b070f955258d97840506731129958ed70a29db396e</code>
+
+### POST/PUT Requests
+#### Given The Values
+
+Request URL: <code>https://surveys.rapidoreach.com/api/endpoint</code>
+Company Secret Key: <code>UbsXaKTGWNd3wD8y5ZeV</code>
+JSON Body: <code>{“key”:“value”}</code>
+
+#### We Hash Them
+<code>
+{Request URL}+{JSON Body}+{Company Secret Key}
+https://surveys.rapidoreach.com/api/endpoint{“key”:“value”}UbsXaKTGWNd3wD8y5ZeV
+</code>
+
+#### Which Gives The Hash
+<code>b3ce2e72133a4d7eb69cf563249c969c9a7ea70331fee986f79df29cc387957d</code>
+
+#### And Gets Added To The URL Or JSON Body
+<code>https://surveys.rapidoreach.com/api/endpoint?enc=b3ce2e72133a4d7eb69cf563249c969c9a7ea70331fee986f79df29cc387957d</code>
+
+<aside class="success">
+
+Gotchas
+
+When working with `RapidoReach’s` request hashing, there are a few `“gotchas”` you should be aware of
+The query parameters MUST be sent in the same order that they were when creating the hash.
+If you are hashing a JSON request body you MUST hash it in a completely minified state1.
+1. JSON in a minified state refers to all unnecessary whitespace being removed. e.g: <code>{ "key": { "a": 1, "b": 2 } }</code> becomes <code>{"key":{"a":1,"b":2}}</code>
+
+</aside>
+
+## Verifying External Completes
+
+We currently offer two avenues for verifying a `respondent's` survey completion: User Redirection with URL Hashing for improved security, or a Server-to-Server Postback/Callback.
+
+<aside class="notice">
+Though we allow server-to-server postback, we highly encourage you and your team to consider using redirection with URL hashing.
+</aside>
+
+### Redirection with URL Hashing
+
+URL security hashing is a secure, realtime pattern for verifying a `respondent's` completion of a survey by use of HTTP redirections and a request-specific hash used to securely transmit untampered respondent information.
+
+Using this method will require the use of the Request Hashing section described above. Namely, we will only be dealing with GET HTTP requests, making implementation straight forward.
+
+To enable this endpoint your company will need to choose a hashing algorithm by going to your `company's` api settings page and selecting an algorithm for URL Encryption, under Routing URL Security. Currently, we offer SHA1, SHA2, and SHA3-256 encryption types.
+
+#### Example HTTP Request Signature
+
+GET https://surveys.rapidoreach.com/respondent_result/
+
+#### Query Parameters Provided
+Parameter | Required | Default | Description
+--------- | -------- | ------- | -----------
+transaction_id	| Yes	| None | The ID corresponding to the transaction we are processing.
+result | Yes | None	| Result ID corresponding to the `respondent's` result for the survey.
+3 = overquota
+4 = disqualified
+5 = screenout
+10 = success
+reason	| No |	None |	Supply an internal (to your company) reason identifier, or general additional information, regarding the reason for the result.
+enc |	Yes |	None |	Generated request hash
+
+### Server-to-Server Postback
+
+Postback verification is a secure server-to-server pattern used when Redirection with URL Hashing is not possible.
+
+Using this method allows you and your team to make use of Request Hashing, described above. The hashing algorithm is the same one described within the Redirection with URL Hashing documentation above.
+
+<aside class="notice">
+There are a few extra requirements for Server-to-Server postbacks:
+1. An API key is required
+2. If your company has whitelisted API IPs set in your `company's` settings, the source IP must be within this list
+3. Your company must explicitly have server postback support enabled. You can reach out to our support to get this setup
+</aside>
+
+#### Query Parameters Provided
+
+Parameter |	Required | Default | Description
+--------- | -------- | ------- | -----------
+enc	| Yes | None | Generated request hash
+
+#### JSON Fields
+
+Field | Required | Type	| Default Description
+----- | -------- | ---- | -------------------
+transaction_id | Yes | The ID corresponding to the transaction we are processing.
+result	| Yes | Result ID corresponding to the `respondent's` result for the survey.
+3 = overquota
+4 = disqualified
+5 = screenout
+10 = success
+reason	| No | Supply an internal (to your company) reason identifier, or general additional information, regarding the reason for the result.
+
+

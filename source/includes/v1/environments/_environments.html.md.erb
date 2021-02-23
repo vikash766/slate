@@ -1,0 +1,34 @@
+
+# Environments
+
+To ease integration development, we have a sandbox environment that you can run tests against.
+
+Sandbox URL: https://surveys-sandbox.rapidoreach.com/api/v1/
+
+Production URL: https://surveys.rapidoreach.com/api/v1/
+
+## Postman Collection (Sandbox)
+
+
+We offer a complete postman collection for our API. Use our link below with your postman application's import feature to quickly dive in!
+
+Postman Collection Link: [external link](https://www.getpostman.com/collections/56008ec55ccb4cc7f782)
+
+Once you've imported the collection you'll need to update a few variables. Click the triple dots on the collection, in the sidebar on the left of your postman window.
+
+<%= image_tag "images/postman_ss.png" %>
+
+Click the triple dots, then edit to open the edit modal.
+
+In the 'Edit Collection' modal window you will need to update two separate variables. Go to the 'Variables' tab near the top of the modal window. You'll need to update the secret_key and api_key variables. Specifically, update the CURRENT VALUE column.
+
+Click the Variables tab, then update the variables.
+
+<%= image_tag "images/postman_ss_2.png" %>
+
+Your secret_key and api_key can be found here. When updating your api_key, be sure to first base64 encode the key. Then, use that as the value for the variable.
+
+Please do not edit or remove request_hash or host.
+
+
+
