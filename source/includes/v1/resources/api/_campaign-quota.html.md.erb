@@ -1,0 +1,952 @@
+# Survey Campaign Quotas
+
+## List Quotas
+
+Retrieves a list of all quotas for the survey.
+
+HTTP Request
+
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcampaignquota?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request GET 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcampaignquota?enc={{request_hash}}' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcampaignquota?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcampaignquota?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcampaignquota?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = ''
+headers = {
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("GET", "/api/v1/campaigns/{{campaign_id}}/getcampaignquota?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcampaignquota?enc={{request_hash}}"
+  method := "GET"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Advertiser CampaignQuota fetched successfully",
+    "campaignQuota": [
+        {
+            "campaign_qualifications": [],
+            "quotaable_id": 6681692,
+            "identifier": null,
+            "is_deleted": 0,
+            "campaign_quota_include": 0,
+            "is_global": 0,
+            "total_num_respondents": 0,
+            "feasibility_cr": 0,
+            "is_census_balanced": false,
+            "quotaable_type": "Campaign",
+            "sub_quota_percentage": null,
+            "feasibility_json": null,
+            "last_api_num_respondents": null,
+            "completes": 0,
+            "complete_velocity": 0,
+            "_id": "6034f80b6baafc35e8dc7281",
+            "name": "fsfsf",
+            "num_respondents": 0,
+            "campaign": "6034f094f87d0031ca7e589f",
+            "createdAt": "2021-02-23T12:41:47.334Z",
+            "updatedAt": "2021-02-23T13:00:53.180Z",
+            "__v": 4
+        }
+    ]
+}
+```
+
+
+## Creates a quota
+
+Creates a new quota for the survey.
+
+HTTP Request
+
+POST <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request POST 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--data-raw '{
+	"name" : "GENPOP3",
+	"num_respondents": 5
+}'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request.body = "{\n\t\"name\" : \"GENPOP3\",\n\t\"num_respondents\": 5\n}"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+$request->setBody('{\n	"name" : "GENPOP3",\n	"num_respondents": 5\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var raw = JSON.stringify({"name":"GENPOP3","num_respondents":5});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n\t\"name\" : \"GENPOP3\",\n\t\"num_respondents\": 5\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("POST", "/api/v1/campaigns/{{campaign_id}}/campaignsquota?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota?enc={{request_hash}}"
+  method := "POST"
+
+  payload := strings.NewReader(`{
+	"name" : "GENPOP3",
+	"num_respondents": 5
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Campaign quota created successfully",
+    "campaignQuota": {
+        "campaign_qualifications": [],
+        "quotaable_id": 6681692,
+        "identifier": null,
+        "is_deleted": 0,
+        "campaign_quota_include": 0,
+        "is_global": 0,
+        "total_num_respondents": 0,
+        "feasibility_cr": 0,
+        "is_census_balanced": false,
+        "quotaable_type": "Campaign",
+        "sub_quota_percentage": null,
+        "feasibility_json": null,
+        "last_api_num_respondents": null,
+        "completes": 0,
+        "complete_velocity": 0,
+        "_id": "60368f903525350c473cbc6a",
+        "name": "GENPOP3",
+        "num_respondents": 5,
+        "campaign": "6034f094f87d0031ca7e589f",
+        "createdAt": "2021-02-24T17:40:32.074Z",
+        "updatedAt": "2021-02-24T17:40:32.074Z",
+        "__v": 0
+    }
+}
+```
+
+## Update a Quota
+
+Updates a quota with the provided attributes.
+
+HTTP Request
+PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request PUT 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--data-raw '{
+	"name" : "GENPOP3",
+	"num_respondents": 5
+}'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Put.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request.body = "{\n\t\"name\" : \"GENPOP3\",\n\t\"num_respondents\": 5\n}"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_PUT);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+$request->setBody('{\n	"name" : "GENPOP3",\n	"num_respondents": 5\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var raw = JSON.stringify({"name":"GENPOP3","num_respondents":5});
+
+var requestOptions = {
+  method: 'PUT',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n\t\"name\" : \"GENPOP3\",\n\t\"num_respondents\": 5\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("PUT", "/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}"
+  method := "PUT"
+
+  payload := strings.NewReader(`{
+	"name" : "GENPOP3",
+	"num_respondents": 5
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "CampaignQuota Updated",
+    "campaignQuota": {
+        "campaign_qualifications": [],
+        "quotaable_id": 6681692,
+        "identifier": null,
+        "is_deleted": 0,
+        "campaign_quota_include": 0,
+        "is_global": 0,
+        "total_num_respondents": 0,
+        "feasibility_cr": 0,
+        "is_census_balanced": false,
+        "quotaable_type": "Campaign",
+        "sub_quota_percentage": null,
+        "feasibility_json": null,
+        "last_api_num_respondents": null,
+        "completes": 0,
+        "complete_velocity": 0,
+        "_id": "60368f903525350c473cbc6a",
+        "name": "GENPOP3",
+        "num_respondents": 5,
+        "campaign": "6034f094f87d0031ca7e589f",
+        "createdAt": "2021-02-24T17:40:32.074Z",
+        "updatedAt": "2021-02-24T17:40:32.074Z",
+        "__v": 0
+    }
+}
+```
+
+## Deletes a Quota.
+
+Deletes a quota
+
+HTTP Request
+DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request DELETE 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--data-raw '{
+	"name": "New Quota",
+	"target_completes": 250,
+	"state": "acive",
+	"questions": [
+		{
+			"question_id": "8214",
+			"answer_ids": ["true"]
+		},
+		{
+			"question_id": "8213",
+			"answer_ids": ["true"]
+		},
+		{
+			"question_id": "45",
+			"postal_codes": ["23185", "90210"]
+		}
+	]
+}'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Delete.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request.body = "{\n\t\"name\": \"New Quota\",\n\t\"target_completes\": 250,\n\t\"state\": \"acive\",\n\t\"questions\": [\n\t\t{\n\t\t\t\"question_id\": \"8214\",\n\t\t\t\"answer_ids\": [\"true\"]\n\t\t},\n\t\t{\n\t\t\t\"question_id\": \"8213\",\n\t\t\t\"answer_ids\": [\"true\"]\n\t\t},\n\t\t{\n\t\t\t\"question_id\": \"45\",\n\t\t\t\"postal_codes\": [\"23185\", \"90210\"]\n\t\t}\n\t]\n}"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_DELETE);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+$request->setBody('{\n	"name": "New Quota",\n	"target_completes": 250,\n	"state": "acive",\n	"questions": [\n		{\n			"question_id": "8214",\n			"answer_ids": ["true"]\n		},\n		{\n			"question_id": "8213",\n			"answer_ids": ["true"]\n		},\n		{\n			"question_id": "45",\n			"postal_codes": ["23185", "90210"]\n		}\n	]\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var raw = JSON.stringify({"name":"New Quota","target_completes":250,"state":"acive","questions":[{"question_id":"8214","answer_ids":["true"]},{"question_id":"8213","answer_ids":["true"]},{"question_id":"45","postal_codes":["23185","90210"]}]});
+
+var requestOptions = {
+  method: 'DELETE',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n\t\"name\": \"New Quota\",\n\t\"target_completes\": 250,\n\t\"state\": \"acive\",\n\t\"questions\": [\n\t\t{\n\t\t\t\"question_id\": \"8214\",\n\t\t\t\"answer_ids\": [\"true\"]\n\t\t},\n\t\t{\n\t\t\t\"question_id\": \"8213\",\n\t\t\t\"answer_ids\": [\"true\"]\n\t\t},\n\t\t{\n\t\t\t\"question_id\": \"45\",\n\t\t\t\"postal_codes\": [\"23185\", \"90210\"]\n\t\t}\n\t]\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("DELETE", "/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}"
+  method := "DELETE"
+
+  payload := strings.NewReader(`{
+	"name": "New Quota",
+	"target_completes": 250,
+	"state": "acive",
+	"questions": [
+		{
+			"question_id": "8214",
+			"answer_ids": ["true"]
+		},
+		{
+			"question_id": "8213",
+			"answer_ids": ["true"]
+		},
+		{
+			"question_id": "45",
+			"postal_codes": ["23185", "90210"]
+		}
+	]
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Campaign Quota deleted!"
+}
+```
+
+## Show Quota
+
+Show a quota
+
+
+HTTP Request
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request GET 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--data-raw '{
+	"name": "New Quota",
+	"target_completes": 250,
+	"state": "acive",
+	"questions": [
+		{
+			"question_id": "8214",
+			"answer_ids": ["true"]
+		},
+		{
+			"question_id": "8213",
+			"answer_ids": ["true"]
+		},
+		{
+			"question_id": "45",
+			"postal_codes": ["23185", "90210"]
+		}
+	]
+}'
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request.body = "{\n\t\"name\": \"New Quota\",\n\t\"target_completes\": 250,\n\t\"state\": \"acive\",\n\t\"questions\": [\n\t\t{\n\t\t\t\"question_id\": \"8214\",\n\t\t\t\"answer_ids\": [\"true\"]\n\t\t},\n\t\t{\n\t\t\t\"question_id\": \"8213\",\n\t\t\t\"answer_ids\": [\"true\"]\n\t\t},\n\t\t{\n\t\t\t\"question_id\": \"45\",\n\t\t\t\"postal_codes\": [\"23185\", \"90210\"]\n\t\t}\n\t]\n}"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+$request->setBody('{\n	"name": "New Quota",\n	"target_completes": 250,\n	"state": "acive",\n	"questions": [\n		{\n			"question_id": "8214",\n			"answer_ids": ["true"]\n		},\n		{\n			"question_id": "8213",\n			"answer_ids": ["true"]\n		},\n		{\n			"question_id": "45",\n			"postal_codes": ["23185", "90210"]\n		}\n	]\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var raw = JSON.stringify({"name":"New Quota","target_completes":250,"state":"acive","questions":[{"question_id":"8214","answer_ids":["true"]},{"question_id":"8213","answer_ids":["true"]},{"question_id":"45","postal_codes":["23185","90210"]}]});
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n\t\"name\": \"New Quota\",\n\t\"target_completes\": 250,\n\t\"state\": \"acive\",\n\t\"questions\": [\n\t\t{\n\t\t\t\"question_id\": \"8214\",\n\t\t\t\"answer_ids\": [\"true\"]\n\t\t},\n\t\t{\n\t\t\t\"question_id\": \"8213\",\n\t\t\t\"answer_ids\": [\"true\"]\n\t\t},\n\t\t{\n\t\t\t\"question_id\": \"45\",\n\t\t\t\"postal_codes\": [\"23185\", \"90210\"]\n\t\t}\n\t]\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("GET", "/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}"
+  method := "GET"
+
+  payload := strings.NewReader(`{
+	"name": "New Quota",
+	"target_completes": 250,
+	"state": "acive",
+	"questions": [
+		{
+			"question_id": "8214",
+			"answer_ids": ["true"]
+		},
+		{
+			"question_id": "8213",
+			"answer_ids": ["true"]
+		},
+		{
+			"question_id": "45",
+			"postal_codes": ["23185", "90210"]
+		}
+	]
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Campaign Quota fetched successfully",
+    "campaignQuota": {
+        "campaign_qualifications": [],
+        "quotaable_id": 6681692,
+        "identifier": null,
+        "is_deleted": 0,
+        "campaign_quota_include": 0,
+        "is_global": 0,
+        "total_num_respondents": 0,
+        "feasibility_cr": 0,
+        "is_census_balanced": false,
+        "quotaable_type": "Campaign",
+        "sub_quota_percentage": null,
+        "feasibility_json": null,
+        "last_api_num_respondents": null,
+        "completes": 0,
+        "complete_velocity": 0,
+        "_id": "60368f903525350c473cbc6a",
+        "name": "GENPOP3",
+        "num_respondents": 5,
+        "campaign": "6034f094f87d0031ca7e589f",
+        "createdAt": "2021-02-24T17:40:32.074Z",
+        "updatedAt": "2021-02-24T17:40:32.074Z",
+        "__v": 0
+    }
+}
+```

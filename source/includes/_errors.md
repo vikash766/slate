@@ -1,10 +1,26 @@
 # Errors
 
 <aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+Errors, unlike warnings, mean that a request failed to complete. Errors can be found at the root of the response JSON, under the errors key. This key is only present if error(s) were hit while we processed your request.
+
 </aside>
 
-The Kittn API uses the following error codes:
+<code>
+{
+    "Errors": [
+        "Hash is not valid."
+    ],
+    "Info": [],
+    "Data": [],
+    "ErrorCode": "INVALID_HASH",
+    "fieldErrors": {
+        "List": []
+    }
+}
+</code>
+
+
+## HTTP Status Codes & Reasons:
 
 
 Error Code | Meaning

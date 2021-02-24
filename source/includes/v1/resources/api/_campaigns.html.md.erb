@@ -1,0 +1,1036 @@
+# Campaigns(Surveys)
+
+## List Surveys
+
+> Request
+
+```shell
+curl --location --request GET 'http://www.rapidoreach.com/api/v1/campaigns/getcampaigns?enc={{request_hash}}' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/getcampaigns?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+
+response = http.request(request)
+puts response.read_body
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/getcampaigns?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/getcampaigns?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = ''
+headers = {
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("GET", "/api/v1/campaigns/getcampaigns?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/getcampaigns?enc={{request_hash}}"
+  method := "GET"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Advertiser Campaigns fetched successfully",
+    "campaigns": [
+        {
+            "cpi": 4,
+            "incidence": 0,
+            "length_of_interview": 15,
+            "campaign_quotas": [
+                "6034f80b6baafc35e8dc7281",
+                "60350f371776ac3c66795fb5"
+            ],
+            "status": "DRAFT",
+            "payment": "PENDING",
+            "name": "test camp 1",
+            "supported_devices": [],
+            "start_date": "2021-02-22T18:30:00.000Z",
+            "end_date": "2021-02-27T18:30:00.000Z",
+            "conversion": 50,
+            "offerwall_return_url_disqualify": "https://surveys.offerwall.com/respondent_result?result=4&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+            "offerwall_return_url_overquota": "https://surveys.offerwall.com/respondent_result?result=3&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+            "offerwall_return_url_screenout": "https://surveys.offerwall.com/respondent_result?result=5&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+            "offerwall_return_url_success": "https://surveys.offerwall.com/respondent_result?result=10&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+            "disqualify_url_test": false,
+            "overquota_url_test": false,
+            "screenout_url_test": false,
+            "success_url_test": false,
+            "allow_to_continue_url_tt": false,
+            "survey_source": "diy",
+            "survey_creation": "external",
+            "cached_attempts_count": 0,
+            "cached_completes_count": 0,
+            "cached_conversion_rate": 0,
+            "cached_effective_cpi": 0,
+            "estimated_loi_in_seconds": null,
+            "calculated_loi_in_seconds": null,
+            "user_estimated_loi": 5,
+            "user_estimated_conversion_rate": 100,
+            "target_completes": 5,
+            "selected_appuser_source_ids": [],
+            "billing_method": "BIDDING",
+            "estimated_effective_cpi": 4,
+            "estimated_total_cost": 20,
+            "estimated_attempts_count": 10,
+            "furthest_step_completed": 0,
+            "retarget_campaign_ids": [],
+            "is_maid_targeted": false,
+            "RecontactIDs": [],
+            "is_retarget": false,
+            "RestrictCampaignRespondents": [],
+            "campaign_questions": [],
+            "_id": "6034f094f87d0031ca7e589f",
+            "country_language_id": "ENG-US",
+            "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+            "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+            "days_in_field": 5,
+            "max_daily_completes": 100,
+            "total_remaining": 100,
+            "creator": "5eb1b3975623b95528d2c082",
+            "campaign_id": "Tjt5bTcic",
+            "createdAt": "2021-02-23T12:09:56.906Z",
+            "updatedAt": "2021-02-23T14:30:14.429Z",
+            "__v": 0
+        }
+    ]
+}
+```
+
+Retrieves a list of all surveys in your system.
+
+HTTP Request
+
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/getcampaigns?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+## Get Survey Details
+
+Retrieves a `survey's` full attributes, metrics, associated country, and details.
+
+> Request
+
+```shell
+curl --location --request GET 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = ''
+headers = {
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("GET", "/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}"
+  method := "GET"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Campaign fetched successfully",
+    "campaign": {
+        "cpi": 4,
+        "incidence": 0,
+        "length_of_interview": 15,
+        "campaign_quotas": [
+            "6034f80b6baafc35e8dc7281",
+            "60350f371776ac3c66795fb5"
+        ],
+        "status": "DRAFT",
+        "payment": "PENDING",
+        "name": "test camp 1",
+        "supported_devices": [],
+        "start_date": "2021-02-22T18:30:00.000Z",
+        "end_date": "2021-02-27T18:30:00.000Z",
+        "conversion": 50,
+        "offerwall_return_url_disqualify": "https://surveys.offerwall.com/respondent_result?result=4&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "offerwall_return_url_overquota": "https://surveys.offerwall.com/respondent_result?result=3&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "offerwall_return_url_screenout": "https://surveys.offerwall.com/respondent_result?result=5&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "offerwall_return_url_success": "https://surveys.offerwall.com/respondent_result?result=10&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "disqualify_url_test": false,
+        "overquota_url_test": false,
+        "screenout_url_test": false,
+        "success_url_test": false,
+        "allow_to_continue_url_tt": false,
+        "survey_source": "diy",
+        "survey_creation": "external",
+        "cached_attempts_count": 0,
+        "cached_completes_count": 0,
+        "cached_conversion_rate": 0,
+        "cached_effective_cpi": 0,
+        "estimated_loi_in_seconds": null,
+        "calculated_loi_in_seconds": null,
+        "user_estimated_loi": 5,
+        "user_estimated_conversion_rate": 100,
+        "target_completes": 5,
+        "selected_appuser_source_ids": [],
+        "billing_method": "BIDDING",
+        "estimated_effective_cpi": 4,
+        "estimated_total_cost": 20,
+        "estimated_attempts_count": 10,
+        "furthest_step_completed": 0,
+        "retarget_campaign_ids": [],
+        "is_maid_targeted": false,
+        "RecontactIDs": [],
+        "is_retarget": false,
+        "RestrictCampaignRespondents": [],
+        "campaign_questions": [],
+        "_id": "6034f094f87d0031ca7e589f",
+        "country_language_id": "ENG-US",
+        "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+        "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+        "days_in_field": 5,
+        "max_daily_completes": 100,
+        "total_remaining": 100,
+        "creator": "5eb1b3975623b95528d2c082",
+        "campaign_id": "Tjt5bTcic",
+        "createdAt": "2021-02-23T12:09:56.906Z",
+        "updatedAt": "2021-02-23T14:30:14.429Z",
+        "__v": 0
+    },
+    "test_redirect_url": "/surveylink/create/RAPIDOREACH/6034f094f87d0031ca7e589f?i=5eb1b3975623b95528d2c082&enc=4b898f8e46cfd6313d78ad70c7cf05c2211b9209&test=true"
+}
+```
+
+Retrieves a list of all surveys in your system.
+
+
+HTTP Request
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+
+## Create a New Survey
+
+
+Creates a new survey with the provided attributes.
+
+
+HTTP Request
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/create?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request POST 'http://www.rapidoreach.com/api/v1/campaigns/create?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--data-raw '{
+    "conversion": 50,
+    "country_language_id": "ENG-US",
+    "cpi": 4,
+    "end_date": "28 Feb, 2021",
+    "length_of_interview": 15,
+    "max_daily_completes": 100,
+    "name": "test camp 1",
+    "start_date": "23 Feb, 2021",
+    "supported_devices": [],
+    "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+    "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}"
+}'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/create?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request.body = "{\n    \"conversion\": 50,\n    \"country_language_id\": \"ENG-US\",\n    \"cpi\": 4,\n    \"end_date\": \"28 Feb, 2021\",\n    \"length_of_interview\": 15,\n    \"max_daily_completes\": 100,\n    \"name\": \"test camp 1\",\n    \"start_date\": \"23 Feb, 2021\",\n    \"supported_devices\": [],\n    \"survey_live_link\": \"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}\",\n    \"survey_test_link\": \"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}\"\n}"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/create?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+$request->setBody('{\n    "conversion": 50,\n    "country_language_id": "ENG-US",\n    "cpi": 4,\n    "end_date": "28 Feb, 2021",\n    "length_of_interview": 15,\n    "max_daily_completes": 100,\n    "name": "test camp 1",\n    "start_date": "23 Feb, 2021",\n    "supported_devices": [],\n    "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",\n    "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var raw = JSON.stringify({"conversion":50,"country_language_id":"ENG-US","cpi":4,"end_date":"28 Feb, 2021","length_of_interview":15,"max_daily_completes":100,"name":"test camp 1","start_date":"23 Feb, 2021","supported_devices":[],"survey_live_link":"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}","survey_test_link":"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}"});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/create?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n    \"conversion\": 50,\n    \"country_language_id\": \"ENG-US\",\n    \"cpi\": 4,\n    \"end_date\": \"28 Feb, 2021\",\n    \"length_of_interview\": 15,\n    \"max_daily_completes\": 100,\n    \"name\": \"test camp 1\",\n    \"start_date\": \"23 Feb, 2021\",\n    \"supported_devices\": [],\n    \"survey_live_link\": \"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}\",\n    \"survey_test_link\": \"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}\"\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("POST", "/api/v1/campaigns/create?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/create?enc={{request_hash}}"
+  method := "POST"
+
+  payload := strings.NewReader(`{
+    "conversion": 50,
+    "country_language_id": "ENG-US",
+    "cpi": 4,
+    "end_date": "28 Feb, 2021",
+    "length_of_interview": 15,
+    "max_daily_completes": 100,
+    "name": "test camp 1",
+    "start_date": "23 Feb, 2021",
+    "supported_devices": [],
+    "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+    "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}"
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Campaign created successfully",
+    "campaign": {
+        "cpi": 4,
+        "incidence": 0,
+        "length_of_interview": 15,
+        "campaign_quotas": [],
+        "status": "DRAFT",
+        "payment": "PENDING",
+        "name": "test camp 1",
+        "supported_devices": [],
+        "start_date": "2021-02-22T18:30:00.000Z",
+        "end_date": "2021-02-27T18:30:00.000Z",
+        "conversion": 50,
+        "offerwall_return_url_disqualify": "https://surveys.offerwall.com/respondent_result?result=4&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "offerwall_return_url_overquota": "https://surveys.offerwall.com/respondent_result?result=3&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "offerwall_return_url_screenout": "https://surveys.offerwall.com/respondent_result?result=5&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "offerwall_return_url_success": "https://surveys.offerwall.com/respondent_result?result=10&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "disqualify_url_test": false,
+        "overquota_url_test": false,
+        "screenout_url_test": false,
+        "success_url_test": false,
+        "allow_to_continue_url_tt": false,
+        "survey_source": "diy",
+        "survey_creation": "external",
+        "cached_attempts_count": 0,
+        "cached_completes_count": 0,
+        "cached_conversion_rate": 0,
+        "cached_effective_cpi": 0,
+        "estimated_loi_in_seconds": null,
+        "calculated_loi_in_seconds": null,
+        "user_estimated_loi": 5,
+        "user_estimated_conversion_rate": 100,
+        "target_completes": 0,
+        "selected_appuser_source_ids": [],
+        "billing_method": "BIDDING",
+        "estimated_effective_cpi": 0,
+        "estimated_total_cost": 0,
+        "estimated_attempts_count": 0,
+        "furthest_step_completed": 0,
+        "retarget_campaign_ids": [],
+        "is_maid_targeted": false,
+        "RecontactIDs": [],
+        "is_retarget": false,
+        "RestrictCampaignRespondents": [],
+        "campaign_questions": [],
+        "_id": "60368e713525350c473cbc67",
+        "country_language_id": "ENG-US",
+        "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+        "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+        "days_in_field": 5,
+        "max_daily_completes": 100,
+        "total_remaining": 100,
+        "creator": "5eb1b3975623b95528d2c082",
+        "campaign_id": "NL94Tqbe8",
+        "createdAt": "2021-02-24T17:35:45.926Z",
+        "updatedAt": "2021-02-24T17:35:45.926Z",
+        "__v": 0
+    },
+    "creator": {
+        "_id": "5eb1b3975623b95528d2c082",
+        "name": "Vikash kumar",
+        "test_redirect_url": "/test/survey/RAPIDOREACH/60368e723525350c473cbc68?i=5eb1b3975623b95528d2c082&enc=43e0af73b2ac2feb085169d6bd9f982f7a264304?test=true?campid=60368e713525350c473cbc67"
+    }
+}
+```
+
+## Updates a survey
+
+
+Updates a survey with the provided attributes.
+
+HTTP Request
+PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request PUT 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--data-raw '{
+    "conversion": 50,
+    "country_language_id": "ENG-US",
+    "cpi": 4,
+    "end_date": "28 Feb, 2021",
+    "length_of_interview": 15,
+    "max_daily_completes": 100,
+    "name": "test camp 1",
+    "start_date": "23 Feb, 2021",
+    "supported_devices": [],
+    "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+    "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}"
+}'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Put.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request.body = "{\n    \"conversion\": 50,\n    \"country_language_id\": \"ENG-US\",\n    \"cpi\": 4,\n    \"end_date\": \"28 Feb, 2021\",\n    \"length_of_interview\": 15,\n    \"max_daily_completes\": 100,\n    \"name\": \"test camp 1\",\n    \"start_date\": \"23 Feb, 2021\",\n    \"supported_devices\": [],\n    \"survey_live_link\": \"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}\",\n    \"survey_test_link\": \"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}\"\n}"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_PUT);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+$request->setBody('{\n    "conversion": 50,\n    "country_language_id": "ENG-US",\n    "cpi": 4,\n    "end_date": "28 Feb, 2021",\n    "length_of_interview": 15,\n    "max_daily_completes": 100,\n    "name": "test camp 1",\n    "start_date": "23 Feb, 2021",\n    "supported_devices": [],\n    "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",\n    "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var raw = JSON.stringify({"conversion":50,"country_language_id":"ENG-US","cpi":4,"end_date":"28 Feb, 2021","length_of_interview":15,"max_daily_completes":100,"name":"test camp 1","start_date":"23 Feb, 2021","supported_devices":[],"survey_live_link":"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}","survey_test_link":"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}"});
+
+var requestOptions = {
+  method: 'PUT',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n    \"conversion\": 50,\n    \"country_language_id\": \"ENG-US\",\n    \"cpi\": 4,\n    \"end_date\": \"28 Feb, 2021\",\n    \"length_of_interview\": 15,\n    \"max_daily_completes\": 100,\n    \"name\": \"test camp 1\",\n    \"start_date\": \"23 Feb, 2021\",\n    \"supported_devices\": [],\n    \"survey_live_link\": \"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}\",\n    \"survey_test_link\": \"https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}\"\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("PUT", "/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}"
+  method := "PUT"
+
+  payload := strings.NewReader(`{
+    "conversion": 50,
+    "country_language_id": "ENG-US",
+    "cpi": 4,
+    "end_date": "28 Feb, 2021",
+    "length_of_interview": 15,
+    "max_daily_completes": 100,
+    "name": "test camp 1",
+    "start_date": "23 Feb, 2021",
+    "supported_devices": [],
+    "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+    "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}"
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Campaigns Updated",
+    "campaigns": {
+        "cpi": 4,
+        "incidence": 0,
+        "length_of_interview": 15,
+        "campaign_quotas": [
+            "6034f80b6baafc35e8dc7281",
+            "60350f371776ac3c66795fb5"
+        ],
+        "status": "DRAFT",
+        "payment": "PENDING",
+        "name": "test camp 1",
+        "supported_devices": [],
+        "start_date": "2021-02-22T18:30:00.000Z",
+        "end_date": "2021-02-27T18:30:00.000Z",
+        "conversion": 50,
+        "offerwall_return_url_disqualify": "https://surveys.offerwall.com/respondent_result?result=4&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "offerwall_return_url_overquota": "https://surveys.offerwall.com/respondent_result?result=3&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "offerwall_return_url_screenout": "https://surveys.offerwall.com/respondent_result?result=5&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "offerwall_return_url_success": "https://surveys.offerwall.com/respondent_result?result=10&transaction_id={REPLACE_ME}&reason={REPLACE_ME}",
+        "disqualify_url_test": false,
+        "overquota_url_test": false,
+        "screenout_url_test": false,
+        "success_url_test": false,
+        "allow_to_continue_url_tt": false,
+        "survey_source": "diy",
+        "survey_creation": "external",
+        "cached_attempts_count": 0,
+        "cached_completes_count": 0,
+        "cached_conversion_rate": 0,
+        "cached_effective_cpi": 0,
+        "estimated_loi_in_seconds": null,
+        "calculated_loi_in_seconds": null,
+        "user_estimated_loi": 5,
+        "user_estimated_conversion_rate": 100,
+        "target_completes": 5,
+        "selected_appuser_source_ids": [],
+        "billing_method": "BIDDING",
+        "estimated_effective_cpi": 4,
+        "estimated_total_cost": 20,
+        "estimated_attempts_count": 10,
+        "furthest_step_completed": 0,
+        "retarget_campaign_ids": [],
+        "is_maid_targeted": false,
+        "RecontactIDs": [],
+        "is_retarget": false,
+        "RestrictCampaignRespondents": [],
+        "campaign_questions": [],
+        "_id": "6034f094f87d0031ca7e589f",
+        "country_language_id": "ENG-US",
+        "survey_live_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+        "survey_test_link": "https://survey.zohopublic.com/zs/HBCsAV?transaction_id={transaction_id}",
+        "days_in_field": 5,
+        "max_daily_completes": 100,
+        "total_remaining": 100,
+        "creator": "5eb1b3975623b95528d2c082",
+        "campaign_id": "Tjt5bTcic",
+        "createdAt": "2021-02-23T12:09:56.906Z",
+        "updatedAt": "2021-02-23T14:30:14.429Z",
+        "__v": 0
+    }
+}
+```
+
+## Delete a Survey
+
+Soft-deletes a survey on your account.
+
+HTTP Request
+DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request DELETE 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc=' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc=")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Delete.new(url)
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}enc=');
+$request->setMethod(HTTP_Request2::METHOD_DELETE);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var requestOptions = {
+  method: 'DELETE',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}enc=", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = ''
+headers = {
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("DELETE", "/api/v1/campaigns/{{campaign_id}}enc=", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}enc="
+  method := "DELETE"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Campaign deleted!"
+}
+```

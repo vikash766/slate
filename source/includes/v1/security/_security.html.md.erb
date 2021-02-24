@@ -48,7 +48,7 @@ hashedUrl = `${requestUrl}?enc=${hash.digest('hash')}`;
 
 #### Given The Values
 
-<code>Request URL: https://surveys.rapidoreach.com/api/endpoint?param_one=value_one
+Request URL: <code>https://surveys.rapidoreach.com/api/endpoint?param_one=value_one
 Company Secret Key: UbsXaKTGWNd3wD8y5ZeV</code>
 
 #### We Hash Them
@@ -146,14 +146,14 @@ enc	| Yes | None | Generated request hash
 
 #### JSON Fields
 
-Field | Required | Type	| Default Description
------ | -------- | ---- | -------------------
-transaction_id | Yes | The ID corresponding to the transaction we are processing.
-result	| Yes | Result ID corresponding to the `respondent's` result for the survey.
+Field | Required | Type	| Default | Description
+----- | -------- | ---- | ------- | -----------
+transaction_id | Yes | | |The ID corresponding to the transaction we are processing.
+result	| Yes | | |Result ID corresponding to the `respondent's` result for the survey.
 3 = overquota
 4 = disqualified
 5 = screenout
 10 = success
-reason	| No | Supply an internal (to your company) reason identifier, or general additional information, regarding the reason for the result.
+reason	| No | | |Supply an internal (to your company) reason identifier, or general additional information, regarding the reason for the result.
 
 

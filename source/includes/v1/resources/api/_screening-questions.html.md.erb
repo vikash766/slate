@@ -1,0 +1,1384 @@
+# Custom Screening Questions
+
+## List Surveys Screening Questions
+
+Retrieves a list of all Screening Questions for the survey.
+
+HTTP Request
+
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcustomquestions?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request GET 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcustomquestions?enc={{request_hash}}' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--header 'Cookie: connect.sid=s%3A05FHlpf336YvS1j84hhi3QGxAqgVhGcL.dFa6rdCElPCwg1S5UIz1ghwmYrK4FU2lYW0WWHuTye8'
+ ```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcustomquestions?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request["Cookie"] = "connect.sid=s%3A05FHlpf336YvS1j84hhi3QGxAqgVhGcL.dFa6rdCElPCwg1S5UIz1ghwmYrK4FU2lYW0WWHuTye8"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcustomquestions?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--',
+  'Cookie' => 'connect.sid=s%3A05FHlpf336YvS1j84hhi3QGxAqgVhGcL.dFa6rdCElPCwg1S5UIz1ghwmYrK4FU2lYW0WWHuTye8'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+myHeaders.append("Cookie", "connect.sid=s%3A05FHlpf336YvS1j84hhi3QGxAqgVhGcL.dFa6rdCElPCwg1S5UIz1ghwmYrK4FU2lYW0WWHuTye8");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcustomquestions?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = ''
+headers = {
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--',
+  'Cookie': 'connect.sid=s%3A05FHlpf336YvS1j84hhi3QGxAqgVhGcL.dFa6rdCElPCwg1S5UIz1ghwmYrK4FU2lYW0WWHuTye8'
+}
+conn.request("GET", "/api/v1/campaigns/{{campaign_id}}/getcustomquestions?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcustomquestions?enc={{request_hash}}"
+  method := "GET"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+  req.Header.Add("Cookie", "connect.sid=s%3A05FHlpf336YvS1j84hhi3QGxAqgVhGcL.dFa6rdCElPCwg1S5UIz1ghwmYrK4FU2lYW0WWHuTye8")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Advertiser CustomQuestions fetched successfully",
+    "customQuestions": [
+        {
+            "display_text": "",
+            "question_type_id": "Single Punch",
+            "min": null,
+            "max": null,
+            "number_of_ratings": 0,
+            "step": 0,
+            "shuffle_type": "",
+            "question_options_type": "Campaign",
+            "purpose": "",
+            "logical_operator": "",
+            "_id": "{{custom_question_id}}",
+            "campaign": "{{campaign_id}}",
+            "question_options": [
+                {
+                    "control_state": "cs_accept",
+                    "locked": false,
+                    "matrix_type": "mt_none",
+                    "standard_question_option": false,
+                    "user_fillable": false,
+                    "value": "Option 1",
+                    "_id": "603699eb3525350c473cbc70",
+                    "sort_order": 4230,
+                    "option_id": "{{custom_question_option_id}}",
+                    "createdAt": "2021-02-24T18:24:43.490Z",
+                    "updatedAt": "2021-02-24T18:30:04.143Z"
+                }
+            ],
+            "createdAt": "2021-02-24T18:22:27.016Z",
+            "updatedAt": "2021-02-24T18:30:04.286Z",
+            "__v": 1
+        }
+    ]
+}
+```
+
+
+## Creates a new screening question. 
+
+Creates a new screening question for the survey. 
+
+HTTP Request
+
+POST <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request POST 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--header 'Cookie: connect.sid=s%3AFQQSr3XGNS2p3k54zzCnoOxQNuLVqI-m.KEU8MVRgrREEyLUjVSS5jxKszQYQmQRGS48yplXfbHA' \
+--data-raw '{
+}'
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request["Cookie"] = "connect.sid=s%3AFQQSr3XGNS2p3k54zzCnoOxQNuLVqI-m.KEU8MVRgrREEyLUjVSS5jxKszQYQmQRGS48yplXfbHA"
+request.body = "{\n}"
+
+response = http.request(request)
+puts response.read_body
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--',
+  'Cookie' => 'connect.sid=s%3AFQQSr3XGNS2p3k54zzCnoOxQNuLVqI-m.KEU8MVRgrREEyLUjVSS5jxKszQYQmQRGS48yplXfbHA'
+));
+$request->setBody('{\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+myHeaders.append("Cookie", "connect.sid=s%3AFQQSr3XGNS2p3k54zzCnoOxQNuLVqI-m.KEU8MVRgrREEyLUjVSS5jxKszQYQmQRGS48yplXfbHA");
+
+var raw = JSON.stringify({});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--',
+  'Cookie': 'connect.sid=s%3AFQQSr3XGNS2p3k54zzCnoOxQNuLVqI-m.KEU8MVRgrREEyLUjVSS5jxKszQYQmQRGS48yplXfbHA'
+}
+conn.request("POST", "/api/v1/campaigns/{{campaign_id}}/customquestion?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion?enc={{request_hash}}"
+  method := "POST"
+
+  payload := strings.NewReader(`{
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+  req.Header.Add("Cookie", "connect.sid=s%3AFQQSr3XGNS2p3k54zzCnoOxQNuLVqI-m.KEU8MVRgrREEyLUjVSS5jxKszQYQmQRGS48yplXfbHA")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Custom Question created successfully",
+    "customQuestions": {
+        "display_text": "",
+        "question_type_id": "Single Punch",
+        "min": null,
+        "max": null,
+        "number_of_ratings": 0,
+        "step": 0,
+        "shuffle_type": "",
+        "question_options_type": "Campaign",
+        "purpose": "",
+        "logical_operator": "",
+        "_id": "603696d53525350c473cbc6e",
+        "campaign": "{{campaign_id}}",
+        "question_options": [],
+        "createdAt": "2021-02-24T18:11:33.863Z",
+        "updatedAt": "2021-02-24T18:11:33.863Z",
+        "__v": 0
+    }
+}
+```
+
+
+
+## Updates a screening question
+
+Updates a screening question with the provided attributes.
+
+HTTP Request
+
+PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request PUT 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--data-raw '{
+    "display_text": "Question 1",
+    "question_type_id": "Single Punch"
+}'
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_PUT);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+$request->setBody('{\n    "display_text": "Question 1",\n    "question_type_id": "Single Punch"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Put.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request.body = "{\n    \"display_text\": \"Question 1\",\n    \"question_type_id\": \"Single Punch\"\n}"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var raw = JSON.stringify({"display_text":"Question 1","question_type_id":"Single Punch"});
+
+var requestOptions = {
+  method: 'PUT',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n    \"display_text\": \"Question 1\",\n    \"question_type_id\": \"Single Punch\"\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("PUT", "/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}"
+  method := "PUT"
+
+  payload := strings.NewReader(`{
+    "display_text": "Question 1",
+    "question_type_id": "Single Punch"
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Custom Question Updated",
+    "customQuestions": {
+        "display_text": "",
+        "question_type_id": "Single Punch",
+        "min": null,
+        "max": null,
+        "number_of_ratings": 0,
+        "step": 0,
+        "shuffle_type": "",
+        "question_options_type": "Campaign",
+        "purpose": "",
+        "logical_operator": "",
+        "_id": "603696d53525350c473cbc6e",
+        "campaign": "{{campaign_id}}",
+        "question_options": [],
+        "createdAt": "2021-02-24T18:11:33.863Z",
+        "updatedAt": "2021-02-24T18:11:33.863Z",
+        "__v": 0
+    }
+}
+```
+
+
+
+## Deletes a screening question and its options.
+
+Deletes a screening question and its options.
+
+HTTP Request
+
+DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request DELETE 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--'
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Delete.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_DELETE);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var requestOptions = {
+  method: 'DELETE',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = ''
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("DELETE", "/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}"
+  method := "DELETE"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Advertiser CustomQuestions deleted successfully"
+}
+```
+
+
+
+## Get a Surveys Screening Questions
+
+Get a Surveys Screening Question for the survey.
+
+
+HTTP Request
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request GET 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--'
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+
+response = http.request(request)
+puts response.read_body
+
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = ''
+headers = {
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("GET", "/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}"
+  method := "GET"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Advertiser CustomQuestion fetched successfully",
+    "customQuestions": [
+        {
+            "display_text": "",
+            "question_type_id": "Single Punch",
+            "min": null,
+            "max": null,
+            "number_of_ratings": 0,
+            "step": 0,
+            "shuffle_type": "",
+            "question_options_type": "Campaign",
+            "purpose": "",
+            "logical_operator": "",
+            "_id": "{{custom_question_id}}",
+            "campaign": "{{campaign_id}}",
+            "question_options": [
+                {
+                    "control_state": "cs_accept",
+                    "locked": false,
+                    "matrix_type": "mt_none",
+                    "standard_question_option": false,
+                    "user_fillable": false,
+                    "value": "Option 1",
+                    "_id": "603699eb3525350c473cbc70",
+                    "sort_order": 4230,
+                    "option_id": "{{custom_question_option_id}}",
+                    "createdAt": "2021-02-24T18:24:43.490Z",
+                    "updatedAt": "2021-02-24T18:30:04.143Z"
+                }
+            ],
+            "createdAt": "2021-02-24T18:22:27.016Z",
+            "updatedAt": "2021-02-24T18:30:04.286Z",
+            "__v": 1
+        }
+    ]
+}
+```
+
+
+## Creates a new screening otion. 
+
+Creates a new screening option for the survey. 
+
+HTTP Request
+
+POST <code>http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/createoption?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request POST 'http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/createoption?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--data-raw '{
+}'
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/createoption?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request.body = "{\n}"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/createoption?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+$request->setBody('{\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var raw = JSON.stringify({});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/createoption?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("POST", "/api/v1/campaigns/cq/{{custom_question_id}}/createoption?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/createoption?enc={{request_hash}}"
+  method := "POST"
+
+  payload := strings.NewReader(`{
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Custom Question Options created successfully",
+    "customQuestions": {
+        "display_text": "",
+        "question_type_id": "Single Punch",
+        "min": null,
+        "max": null,
+        "number_of_ratings": 0,
+        "step": 0,
+        "shuffle_type": "",
+        "question_options_type": "Campaign",
+        "purpose": "",
+        "logical_operator": "",
+        "_id": "{{custom_question_id}}",
+        "campaign": "{{campaign_id}}",
+        "question_options": [
+            {
+                "control_state": "cs_accept",
+                "locked": false,
+                "matrix_type": "mt_none",
+                "standard_question_option": false,
+                "user_fillable": false,
+                "value": "",
+                "_id": "603699eb3525350c473cbc70",
+                "sort_order": 4230,
+                "option_id": "{{custom_question_option_id}}",
+                "createdAt": "2021-02-24T18:24:43.490Z",
+                "updatedAt": "2021-02-24T18:24:43.490Z"
+            }
+        ],
+        "createdAt": "2021-02-24T18:22:27.016Z",
+        "updatedAt": "2021-02-24T18:24:43.645Z",
+        "__v": 1
+    }
+}
+```
+
+
+
+## Updates a screening option
+
+Updates a screening option with the provided attributes.
+
+HTTP Request
+
+PUT <code>http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request PUT 'http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--' \
+--data-raw '{
+    "value": "Option 1",
+    "control_state": "cs_accept"
+}'
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_PUT);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+$request->setBody('{\n    "value": "Option 1",\n    "control_state": "cs_accept"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Put.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+request.body = "{\n    \"value\": \"Option 1\",\n    \"control_state\": \"cs_accept\"\n}"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var raw = JSON.stringify({"value":"Option 1","control_state":"cs_accept"});
+
+var requestOptions = {
+  method: 'PUT',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = "{\n    \"value\": \"Option 1\",\n    \"control_state\": \"cs_accept\"\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("PUT", "/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}"
+  method := "PUT"
+
+  payload := strings.NewReader(`{
+    "value": "Option 1",
+    "control_state": "cs_accept"
+}`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Custom Question Options updated successfully"
+}
+```
+
+
+## Deletes a screening question and its options.
+
+Deletes a screening question and its options.
+
+HTTP Request
+
+DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
+
+> Request
+
+```shell
+curl --location --request DELETE 'http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}' \
+--header 'Content-Type: application/json' \
+--header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--'
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Delete.new(url)
+request["Content-Type"] = "application/json"
+request["X-Api-Key"] = "--REPLACE WITH YOUR SECRET KEY--"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}');
+$request->setMethod(HTTP_Request2::METHOD_DELETE);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'X-Api-Key' => '--REPLACE WITH YOUR SECRET KEY--'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--");
+
+var requestOptions = {
+  method: 'DELETE',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("www.rapidoreach.com")
+payload = ''
+headers = {
+  'Content-Type': 'application/json',
+  'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
+}
+conn.request("DELETE", "/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}"
+  method := "DELETE"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("X-Api-Key", "--REPLACE WITH YOUR SECRET KEY--")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+
+> Response:
+
+```json
+{
+    "message": "Advertiser Custom Option deleted successfully"
+}
+```
