@@ -29,10 +29,12 @@ Request hashing is a required feature of the DIY API that allows RapidoReach to 
 ### The How?
 Request hashing is accomplished by creating a hash of your request url (including query parameters), your company’s secret key, and the `request's` raw body. The hashed value is then added to the end of your request url using the enc query parameter.
 
+> Request
+
 ```javascript
 const { SHA3 } = require('sha3');
 
-const requestUrl = 'https://surveys.rapidoreach.com/api/external/v1/countries';
+const requestUrl = 'https://www.rapidoreach.com/api/v1/campaigns/countries';
 const jsonBody = { 'key': 'value' };
 const secretKey = 'abcd1234';
 
@@ -48,39 +50,39 @@ hashedUrl = `${requestUrl}?enc=${hash.digest('hash')}`;
 
 #### Given The Values
 
-Request URL: <code>https://surveys.rapidoreach.com/api/endpoint?param_one=value_one
-Company Secret Key: UbsXaKTGWNd3wD8y5ZeV</code>
+Request URL: <code>https://www.rapidoreach.com/api/endpoint?param_one=value_one
+Company Secret Key: SbsXaKTGWNd3wD8y5ZeGT56FG</code>
 
 #### We Hash Them
 
 <code>{Request URL}+{Company Secret Key}
-https://surveys.rapidoreach.com/api/endpoint?param_one=value_oneUbsXaKTGWNd3wD8y5ZeV</code></code>
+https://www.rapidoreach.com/api/endpoint?param_one=value_oneSbsXaKTGWNd3wD8y5ZeGT56FG</code></code>
 
 ####  Which Gives The Hash
 
-<code>85598cc6d64d6d2490d088b070f955258d97840506731129958ed70a29db396e</code>
+<code>f5598cc6d64d6d2490d088b070f97e62898f888d97840506731129958ed70a29db396s</code>
 
 #### And Gets Added To The URL
-<code>https://surveys.rapidoreach.com/api/endpoint?param_one=value_one&enc=85598cc6d64d6d2490d088b070f955258d97840506731129958ed70a29db396e</code>
+<code>https://www.rapidoreach.com/api/endpoint?param_one=value_one&enc=f5598cc6d64d6d2490d088b070f97e62898f888d97840506731129958ed70a29db396s</code>
 
 ### POST/PUT Requests
 #### Given The Values
 
-Request URL: <code>https://surveys.rapidoreach.com/api/endpoint</code>
-Company Secret Key: <code>UbsXaKTGWNd3wD8y5ZeV</code>
+Request URL: <code>https://www.rapidoreach.com/api/endpoint</code>
+Company Secret Key: <code>SbsXaKTGWNd3wD8y5ZeGT56FG</code>
 JSON Body: <code>{“key”:“value”}</code>
 
 #### We Hash Them
 <code>
 {Request URL}+{JSON Body}+{Company Secret Key}
-https://surveys.rapidoreach.com/api/endpoint{“key”:“value”}UbsXaKTGWNd3wD8y5ZeV
+https://www.rapidoreach.com/api/endpoint{“key”:“value”}UbsXaKTGWNd3wD8y5ZeV
 </code>
 
 #### Which Gives The Hash
-<code>b3ce2e72133a4d7eb69cf563249c969c9a7ea70331fee986f79df29cc387957d</code>
+<code>6efrt2e72133a4d7eb69cf563249c969c9a7ea70331fee986f79df29csfs78fd</code>
 
 #### And Gets Added To The URL Or JSON Body
-<code>https://surveys.rapidoreach.com/api/endpoint?enc=b3ce2e72133a4d7eb69cf563249c969c9a7ea70331fee986f79df29cc387957d</code>
+<code>https://www.rapidoreach.com/api/endpoint?enc=6efrt2e72133a4d7eb69cf563249c969c9a7ea70331fee986f79df29csfs78fd</code>
 
 <aside class="success">
 
@@ -94,6 +96,35 @@ If you are hashing a JSON request body you MUST hash it in a completely minified
 </aside>
 
 ## Verifying External Completes
+
+
+
+> Request
+
+```shell
+Request: GET https://www.rapidoreach.com/respondent_result/?result={{redirection_type}}&transaction_id={{--transaction_id--}}&enc={{---your_generated_request_hash---}}
+ ```
+
+```ruby
+Request: GET https://www.rapidoreach.com/respondent_result/?result={{redirection_type}}&transaction_id={{--transaction_id--}}&enc={{---your_generated_request_hash---}}
+```
+
+```php
+Request: GET https://www.rapidoreach.com/respondent_result/?result={{redirection_type}}&transaction_id={{--transaction_id--}}&enc={{---your_generated_request_hash---}}
+```
+
+```javascript
+Request: GET https://www.rapidoreach.com/respondent_result/?result={{redirection_type}}&transaction_id={{--transaction_id--}}&enc={{---your_generated_request_hash---}}
+```
+
+```python
+Request: GET https://www.rapidoreach.com/respondent_result/?result={{redirection_type}}&transaction_id={{--transaction_id--}}&enc={{---your_generated_request_hash---}}
+```
+
+```go
+Request: GET https://www.rapidoreach.com/respondent_result/?result={{redirection_type}}&transaction_id={{--transaction_id--}}&enc={{---your_generated_request_hash---}}
+```
+
 
 We currently offer two avenues for verifying a `respondent's` survey completion: User Redirection with URL Hashing for improved security, or a Server-to-Server Postback/Callback.
 
@@ -111,19 +142,20 @@ To enable this endpoint your company will need to choose a hashing algorithm by 
 
 #### Example HTTP Request Signature
 
-GET https://surveys.rapidoreach.com/respondent_result/
+GET https://www.rapidoreach.com/respondent_result/
 
 #### Query Parameters Provided
 Parameter | Required | Default | Description
 --------- | -------- | ------- | -----------
 transaction_id	| Yes	| None | The ID corresponding to the transaction we are processing.
 result | Yes | None	| Result ID corresponding to the `respondent's` result for the survey.
-3 = overquota
-4 = disqualified
-5 = screenout
-10 = success
+6 = overquota
+3 = disqualified
+9 = screenout
+1 = success
 reason	| No |	None |	Supply an internal (to your company) reason identifier, or general additional information, regarding the reason for the result.
 enc |	Yes |	None |	Generated request hash
+
 
 ### Server-to-Server Postback
 
@@ -150,10 +182,10 @@ Field | Required | Type	| Default | Description
 ----- | -------- | ---- | ------- | -----------
 transaction_id | Yes | | |The ID corresponding to the transaction we are processing.
 result	| Yes | | |Result ID corresponding to the `respondent's` result for the survey.
-3 = overquota
-4 = disqualified
-5 = screenout
-10 = success
+6 = overquota
+3 = disqualified
+9 = screenout
+1 = success
 reason	| No | | |Supply an internal (to your company) reason identifier, or general additional information, regarding the reason for the result.
 
 
