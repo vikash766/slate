@@ -2,17 +2,6 @@
 
 ## List Surveys Quota Qualifications
 
-Retrieves a list of all Quota Qualifications for the survey.
-
-HTTP Request
-GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/getcampaignsqualifications?enc={{request_hash}}</code>
-
-Query Parameters
-
-Parameter |	Required |	Default	| Description
---------- | -------- |  ------- | -----------
-enc	| Yes	| None	| Generated request hash
-
 > Request
 
 ```shell
@@ -184,19 +173,18 @@ func main() {
 }
 ```
 
-
-## Creates a new campaign qualification. 
-
-Creates a new campaign qualification for the survey. 
+Retrieves a list of all Quota Qualifications for the survey.
 
 HTTP Request
-POST <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/campaignsqualification?enc={{request_hash}}</code>
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/getcampaignsqualifications?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+## Creates a new campaign qualification. 
 
 > Request
 
@@ -411,20 +399,25 @@ func main() {
 ```
 
 
-
-## Updates a campaign qualification
-
-Updates a campaign qualification with the provided attributes.
+Creates a new campaign qualification for the survey. 
 
 HTTP Request
-
-PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/campaignsqualification/{{campaign_qualification_id}}?enc={{request_hash}}</code>
+POST <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/campaignsqualification?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+Required Request Parameters
+
+Parameter |	Required |	Type	| Description
+--------- | -------- |  ------- | -----------
+pre_code_values | No | Array	| The question id of the qualification you want to target on..
+question_id	| No | Integer	| A list of accepted pre-codes or values. See Answer Types section.
+
+## Updates a campaign qualification
 
 > Request
 
@@ -638,20 +631,19 @@ func main() {
 }
 ```
 
-## Deletes a campaign qualification and its options.
-
-
-Deletes a campaign qualification and its options.
+Updates a campaign qualification with the provided attributes.
 
 HTTP Request
 
-DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/getcampaignsqualifications?enc={{request_hash}}</code>
+PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/campaignsqualification/{{campaign_qualification_id}}?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+## Deletes a campaign qualification and its options.
 
 > Request
 
@@ -788,19 +780,19 @@ func main() {
 ```
 
 
-## Get a Surveys Quota Qualification
-
-Get a Surveys Quota Qualification for the survey.
+Deletes a campaign qualification and its options.
 
 HTTP Request
 
-GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/campaignsqualification/{{campaign_qualification_id}}?enc={{request_hash}}</code>
+DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/getcampaignsqualifications?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+## Get a Surveys Quota Qualification
 
 > Request
 
@@ -969,3 +961,15 @@ func main() {
     }
 }
 ```
+
+Get a Surveys Quota Qualification for the survey.
+
+HTTP Request
+
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}/campaignsqualification/{{campaign_qualification_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash

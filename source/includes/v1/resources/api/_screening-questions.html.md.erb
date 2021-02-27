@@ -2,18 +2,6 @@
 
 ## List Surveys Screening Questions
 
-Retrieves a list of all Screening Questions for the survey.
-
-HTTP Request
-
-GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcustomquestions?enc={{request_hash}}</code>
-
-Query Parameters
-
-Parameter |	Required |	Default	| Description
---------- | -------- |  ------- | -----------
-enc	| Yes	| None	| Generated request hash
-
 > Request
 
 ```shell
@@ -182,20 +170,19 @@ func main() {
 }
 ```
 
-
-## Creates a new screening question. 
-
-Creates a new screening question for the survey. 
+Retrieves a list of all Screening Questions for the survey.
 
 HTTP Request
 
-POST <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion?enc={{request_hash}}</code>
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcustomquestions?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+## Creates a new screening question. 
 
 > Request
 
@@ -365,21 +352,26 @@ func main() {
 }
 ```
 
-
-
-## Updates a screening question
-
-Updates a screening question with the provided attributes.
+Creates a new screening question for the survey. 
 
 HTTP Request
 
-PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}</code>
+POST <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+Required Request Parameters
+
+Parameter |	Required |	Type | Description
+--------- | -------- |  ---- | -----------
+display_text | No | String	| The question text of the screening question you want to add.
+question_type_id	| No | String	| A list of accepted pre-codes or values. Single Punch and Mutli Punch
+
+## Updates a screening question
 
 > Request
 
@@ -548,21 +540,27 @@ func main() {
 }
 ```
 
-
-
-## Deletes a screening question and its options.
-
-Deletes a screening question and its options.
+Updates a screening question with the provided attributes.
 
 HTTP Request
 
-DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}</code>
+PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+Required Request Parameters
+
+Parameter |	Required |	Type	| Description
+--------- | -------- |  ------- | -----------
+display_text | No | Array	| The question text of the screening question you want to add.
+question_type_id	| No | Integer	| A list of accepted pre-codes or values. Single Punch and Mutli Punch
+
+
+## Deletes a screening question and its options.
 
 > Request
 
@@ -699,20 +697,19 @@ func main() {
 ```
 
 
-
-## Get a Surveys Screening Questions
-
-Get a Surveys Screening Question for the survey.
-
+Deletes a screening question and its options.
 
 HTTP Request
-GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}</code>
+
+DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+## Get a Surveys Screening Questions
 
 > Request
 
@@ -877,20 +874,19 @@ func main() {
 }
 ```
 
+Get a Surveys Screening Question for the survey.
 
-## Creates a new screening otion. 
-
-Creates a new screening option for the survey. 
 
 HTTP Request
-
-POST <code>http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/createoption?enc={{request_hash}}</code>
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/customquestion/603696d53525350c473cbc6e?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+## Creates a new screening otion. 
 
 > Request
 
@@ -1070,20 +1066,26 @@ func main() {
 ```
 
 
-
-## Updates a screening option
-
-Updates a screening option with the provided attributes.
+Creates a new screening option for the survey. 
 
 HTTP Request
 
-PUT <code>http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}</code>
+POST <code>http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/createoption?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+Required Request Parameters
+
+Parameter |	Required |	Type	| Description
+--------- | -------- |  ------- | -----------
+value | No | String	| The option text of the screening question you want to add.
+control_state	| No | String	| A list of accepted pre-codes or values. cs_accept and cs_reject
+
+## Updates a screening option
 
 > Request
 
@@ -1234,20 +1236,26 @@ func main() {
 }
 ```
 
-
-## Deletes a screening question and its options.
-
-Deletes a screening question and its options.
+Updates a screening option with the provided attributes.
 
 HTTP Request
 
-DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}</code>
+PUT <code>http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+Required Request Parameters
+
+Parameter |	Required |	Type	| Description
+--------- | -------- |  ------- | -----------
+value | No | String	| The option text of the screening question you want to add.
+control_state	| No | String	| A list of accepted pre-codes or values. cs_accept and cs_reject
+
+## Deletes a screening question and its options.
 
 > Request
 
@@ -1382,3 +1390,16 @@ func main() {
     "message": "Advertiser Custom Option deleted successfully"
 }
 ```
+
+
+Deletes a screening question and its options.
+
+HTTP Request
+
+DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/cq/{{custom_question_id}}/option/{{custom_question_option_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash

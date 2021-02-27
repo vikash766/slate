@@ -2,18 +2,6 @@
 
 ## List Quotas
 
-Retrieves a list of all quotas for the survey.
-
-HTTP Request
-
-GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcampaignquota?enc={{request_hash}}</code>
-
-Query Parameters
-
-Parameter |	Required |	Default	| Description
---------- | -------- |  ------- | -----------
-enc	| Yes	| None	| Generated request hash
-
 > Request
 
 ```shell
@@ -169,19 +157,20 @@ func main() {
 ```
 
 
-## Creates a quota
-
-Creates a new quota for the survey.
+Retrieves a list of all quotas for the survey.
 
 HTTP Request
 
-POST <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota?enc={{request_hash}}</code>
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/getcampaignquota?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+
+## Creates a quota
 
 > Request
 
@@ -356,18 +345,27 @@ func main() {
 }
 ```
 
-## Update a Quota
-
-Updates a quota with the provided attributes.
+Creates a new quota for the survey.
 
 HTTP Request
-PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}</code>
+
+POST <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+Required Request Parameters
+
+Parameter |	Required |	Type	| Description
+--------- | -------- |  ------- | -----------
+num_respondents	| No | Integer	| The number of completes required before the quota is closed.
+name	| No | Integer	| name of the quota.
+
+## Update a Quota
+
 
 > Request
 
@@ -542,18 +540,19 @@ func main() {
 }
 ```
 
-## Deletes a Quota.
-
-Deletes a quota
+Updates a quota with the provided attributes.
 
 HTTP Request
-DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}</code>
+PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+## Deletes a Quota.
+
 
 > Request
 
@@ -734,19 +733,18 @@ func main() {
 }
 ```
 
-## Show Quota
-
-Show a quota
-
+Deletes a quota
 
 HTTP Request
-GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}</code>
+DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+## Show Quota
 
 > Request
 
@@ -950,3 +948,14 @@ func main() {
     }
 }
 ```
+Show a quota
+
+
+HTTP Request
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}/campaignsquota/{{campaign_quota_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash

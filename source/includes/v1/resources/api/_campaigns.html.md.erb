@@ -205,8 +205,6 @@ enc	| Yes	| None	| Generated request hash
 
 ## Get Survey Details
 
-Retrieves a `survey's` full attributes, metrics, associated country, and details.
-
 > Request
 
 ```shell
@@ -396,8 +394,8 @@ func main() {
 }
 ```
 
-Retrieves a list of all surveys in your system.
 
+Retrieves a `survey's` full attributes, metrics, associated country, and details.
 
 HTTP Request
 GET <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}</code>
@@ -408,21 +406,7 @@ Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
 
-
 ## Create a New Survey
-
-
-Creates a new survey with the provided attributes.
-
-
-HTTP Request
-GET <code>http://www.rapidoreach.com/api/v1/campaigns/create?enc={{request_hash}}</code>
-
-Query Parameters
-
-Parameter |	Required |	Default	| Description
---------- | -------- |  ------- | -----------
-enc	| Yes	| None	| Generated request hash
 
 > Request
 
@@ -582,7 +566,6 @@ func main() {
 }
 ```
 
-
 > Response:
 
 ```json
@@ -653,19 +636,42 @@ func main() {
 }
 ```
 
-## Updates a survey
 
+Creates a new survey with the provided attributes.
 
-Updates a survey with the provided attributes.
 
 HTTP Request
-PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}</code>
+GET <code>http://www.rapidoreach.com/api/v1/campaigns/create?enc={{request_hash}}</code>
 
 Query Parameters
 
 Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
+
+Request Parameters
+
+Parameter	| Required | Type	| Description
+--------- | -------  | ---- | -----------
+name	| Yes |	string	|	Name of the survey.
+survey_live_link	| Yes	| string	|	SSL-enabled URL used to enter the live survey. Must contain ={transaction_id}.
+survey_test_link |	Yes |	string	|	SSL-enabled URL used to enter the test survey. Must contain ={transaction_id}.
+length_of_interview |	Yes	| integer	|	Estimated length to take the survey, in minutes.
+conversion	| Yes	| integer	|	Estimated conversion rate. Range: 1 - 100
+# max_authorized_cpi |	No |	float	|	Maximum authorized CPI for the survey. This option may only be provided if your company has this feature enabled. If you wish to have this feature enabled please contact an admin at RapidoReach.
+cpi	| Yes |	float	|	Bid CPI for this survey -- (range: 0.75 - 2.00). This field is only enabled if your company has biddable cpi enabled. If you with to have this feature enabled please contact an admin at RapidoReach.
+start_date|	Yes	| datetime |		DateTime used to start the survey. ISO8601 format in UTC is expected.
+end_date	| Yes	| datetime	|	DateTime used to end the survey. ISO8601 format in UTC is expected.
+country_language_id |	Yes |	string |	Country this survey should run in.
+max_daily_completes |	Yes	| integer	|	Maximum daily completes.
+is_retarget	| No | Boolean	| Set to true for the first wave of a multi-wave recontact project. This will focus sampling on respondents who are more active, to improve recontact rates on subsequent waves.
+days_in_field	| No | Integer	| Number of days this campaign will be in the field. This value will be used to estimate feasibility for each associated campaign quota. Default value is 5.
+supported_devices	| No | Integer | Array	Pass in 'DESKTOP', 'MOBILE', 'TABLET'.
+max_daily_completes	| No | Integer	| Number of completes that will be allowed per day for this campaign.
+reentry_interval	| No | Integer	| Time allowed for a respondent to re-enter this campaign. Never - null, Unlimited - 0, Minutes - number
+
+
+## Updates a survey
 
 > Request
 
@@ -894,12 +900,11 @@ func main() {
 }
 ```
 
-## Delete a Survey
 
-Soft-deletes a survey on your account.
+Updates a survey with the provided attributes.
 
 HTTP Request
-DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}</code>
+PUT <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}</code>
 
 Query Parameters
 
@@ -907,10 +912,20 @@ Parameter |	Required |	Default	| Description
 --------- | -------- |  ------- | -----------
 enc	| Yes	| None	| Generated request hash
 
+Request Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+status	| No	| None	|  'ACTIVE', 'INACTIVE', 'STOPPED'(completed) will be accepted
+
+for other required and optional parametes please see create campaign
+
+## Delete a Survey
+
 > Request
 
 ```shell
-curl --location --request DELETE 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc=' \
+curl --location --request DELETE 'http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}' \
 --header 'X-Api-Key: --REPLACE WITH YOUR SECRET KEY--'
  ```
 
@@ -918,7 +933,7 @@ curl --location --request DELETE 'http://www.rapidoreach.com/api/v1/campaigns/{{
 require "uri"
 require "net/http"
 
-url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc=")
+url = URI("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}")
 
 http = Net::HTTP.new(url.host, url.port);
 request = Net::HTTP::Delete.new(url)
@@ -933,7 +948,7 @@ puts response.read_body
 <?php
 require_once 'HTTP/Request2.php';
 $request = new HTTP_Request2();
-$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}enc=');
+$request->setUrl('http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}});
 $request->setMethod(HTTP_Request2::METHOD_DELETE);
 $request->setConfig(array(
   'follow_redirects' => TRUE
@@ -966,7 +981,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}enc=", requestOptions)
+fetch("http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}, requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
@@ -980,7 +995,7 @@ payload = ''
 headers = {
   'X-Api-Key': '--REPLACE WITH YOUR SECRET KEY--'
 }
-conn.request("DELETE", "/api/v1/campaigns/{{campaign_id}}enc=", payload, headers)
+conn.request("DELETE", "/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}, payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
@@ -997,7 +1012,7 @@ import (
 
 func main() {
 
-  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}enc="
+  url := "http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}"
   method := "DELETE"
 
   client := &http.Client {
@@ -1034,3 +1049,14 @@ func main() {
     "message": "Campaign deleted!"
 }
 ```
+
+Soft-deletes a survey on your account.
+
+HTTP Request
+DELETE <code>http://www.rapidoreach.com/api/v1/campaigns/{{campaign_id}}?enc={{request_hash}}</code>
+
+Query Parameters
+
+Parameter |	Required |	Default	| Description
+--------- | -------- |  ------- | -----------
+enc	| Yes	| None	| Generated request hash
