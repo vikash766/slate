@@ -145,11 +145,7 @@ GET https://www.rapidoreach.com/respondent_result/
 Parameter | Required | Default | Description
 --------- | -------- | ------- | -----------
 transaction_id	| Yes	| None | The ID corresponding to the transaction we are processing.
-result | Yes | None	| Result ID corresponding to the `respondent's` result for the survey.
-6 = overquota
-3 = disqualified
-9 = screenout
-1 = success
+result | Yes | None	| Result ID corresponding to the `respondent's` result for the survey. `6 = overquota 3 = disqualified 9 = screenout 1 = success`
 reason	| No |	None |	Supply an internal (to your company) reason identifier, or general additional information, regarding the reason for the result.
 enc |	Yes |	None |	Generated request hash
 
@@ -178,11 +174,7 @@ enc	| Yes | None | Generated request hash
 Field | Required | Type	| Default | Description
 ----- | -------- | ---- | ------- | -----------
 transaction_id | Yes | string | |The ID corresponding to the transaction we are processing.
-result	| Yes | string |  |Result ID corresponding to the `respondent's` result for the survey.
-6 = overquota
-3 = disqualified
-9 = screenout
-1 = success
+result	| Yes | string |  | Result ID corresponding to the `respondent's` result for the survey.`6 = overquota 3 = disqualified 9 = screenout 1 = success`
 reason	| No | | |Supply an internal (to your company) reason identifier, or general additional information, regarding the reason for the result.
 
 
