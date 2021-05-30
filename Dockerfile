@@ -2,8 +2,8 @@ FROM ruby:2.6-slim
 
 WORKDIR /srv/slate
 
-VOLUME /srv/slate/build
-VOLUME /srv/slate/source
+# VOLUME /srv/slate/build
+# VOLUME /srv/slate/source
 
 EXPOSE 4567
 
@@ -21,6 +21,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /srv/slate
+
+RUN echo "_resource.html.md.erb" && \
+    cat /srv/slate/source/includes/v1/resources/_resources.html.md.erb
 
 RUN chmod +x /srv/slate/slate.sh
 

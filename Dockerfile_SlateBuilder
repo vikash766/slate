@@ -1,0 +1,24 @@
+# First stage
+FROM slatedocs/slate AS buildImage
+
+WORKDIR /srv/slate
+
+COPY . /srv/slate
+
+RUN bundle exec middleman build --clean  && \
+  ls -la && \
+  cd build && \
+  pwd && \
+  ls -la
+
+
+# Second stage
+FROM nginx:alpine as serverBuild
+
+COPY --from=buildImage /srv/slate/build/index.html /usr/share/nginx/html/index.html
+COPY --from=buildImage /srv/slate/build/fonts/* /usr/share/nginx/html/fonts/
+COPY --from=buildImage /srv/slate/build/images/* /usr/share/nginx/html/images/
+COPY --from=buildImage /srv/slate/build/javascripts/* /usr/share/nginx/html/javascripts/
+COPY --from=buildImage /srv/slate/build/stylesheets/* /usr/share/nginx/html/stylesheets/
+
+EXPOSE 80
